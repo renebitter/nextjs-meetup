@@ -1,5 +1,6 @@
 .form {
   padding: 1rem;
+  background-color: var(--secondary-color);
 }
 
 .control {
@@ -30,16 +31,16 @@
 .actions button {
   font: inherit;
   cursor: pointer;
-  background-color: #77002e;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   padding: 0.5rem 1.5rem;
-  border: 1px solid #77002e;
+  border: 1px solid var(--primary-color);
   border-radius: 4px;
   font-weight: bold;
 }
 
 .actions button:hover,
 .actions button:active {
-  background-color: #a50e48;
-  border-color: #a50e48;
+  background-color: var(--secondary-color);
+  border-color: var(--primary-color);
 }
