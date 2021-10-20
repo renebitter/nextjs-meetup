@@ -1,9 +1,21 @@
 import { MongoClient } from 'mongodb'; //this will not be included in the client-side bundle
 
+import Head from 'next/head';
 import MeetupList from '../components/meetups/MeetupList';
 
 const HomePage = (props) => {
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <>
+      <Head>
+        <title>Next.js Meetups</title>
+        <meta
+          name='description'
+          content='Get access to a list of current next.js meetups'
+        />
+      </Head>
+      <MeetupList meetups={props.meetups} />
+    </>
+  );
 };
 
 export async function getStaticProps() {
