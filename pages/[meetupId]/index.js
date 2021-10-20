@@ -37,7 +37,7 @@ export async function getStaticPaths() {
       params: { meetupId: meetup._id.toString() },
     })),
 
-    fallback: false,
+    fallback: 'blocking',
   };
 }
 
