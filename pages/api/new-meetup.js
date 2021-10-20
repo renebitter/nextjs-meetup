@@ -7,14 +7,13 @@ async function handler(req, res) {
   if (req.method === 'POST') {
     const data = req.body;
 
-    // const { title, image, address, description } = data;
-
+    //TODO: outsource into separate connect function
     const client = await MongoClient.connect(process.env.MONGODB_URI);
     const db = client.db();
-
     const meetupsCollection = db.collection('meetups');
+    //TODO: outsource into separate connect function
 
-    const result = await meetupsCollection.insertOne({ data });
+    const result = await meetupsCollection.insertOne(data);
 
     console.log(result);
 
