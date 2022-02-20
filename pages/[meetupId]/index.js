@@ -20,15 +20,24 @@ const MeetupDetails = (props) => {
   );
 };
 
-export async function getStaticPaths() {
-  //TODO: outsource into separate connect function
+async function getData() {
   const client = await MongoClient.connect(process.env.MONGODB_URI);
   const db = client.db();
   const meetupsCollection = db.collection('meetups');
-  //TODO: outsource into separate connect function
 
+  return meetupsCollection;
+}
+
+export async function getStaticPaths() {
+  const meetupsCollection = getData();
+
+  console.log(meetupsCollection);
+
+  // "projection" by default, queries in MongoDB return all fields in matching documents.
+  // To limit the amount of data that MongoDB sends to applications,
+  // you can include a projection document to specify or restrict fields to return.
   const meetups = await meetupsCollection
-    .find({}, { projection: { _id: 1 } }) //By default, queries in MongoDB return all fields in matching documents. To limit the amount of data that MongoDB sends to applications, you can include a projection document to specify or restrict fields to return.
+    .find({}, { projection: { _id: 1 } })
     .toArray();
   client.close();
 
@@ -46,11 +55,7 @@ export async function getStaticProps(context) {
 
   const meetupId = context.params.meetupId;
 
-  //TODO: outsource into separate connect function
-  const client = await MongoClient.connect(process.env.MONGODB_URI);
-  const db = client.db();
-  const meetupsCollection = db.collection('meetups');
-  //TODO: outsource into separate connect function
+  const meetupsCollection = getData();
 
   const selectedMeetup = await meetupsCollection.findOne({
     _id: ObjectId(meetupId),
